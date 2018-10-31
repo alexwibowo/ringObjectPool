@@ -1,0 +1,59 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'jacoco'
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+    }
+
+}
+
+
+description = "Ring Object Pool"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+idea {
+    module {
+        downloadSources = true
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.jetbrains', name: 'annotations', version: "${jetbrainsAnnotationsVersion}"
+
+    testCompile "org.assertj:assertj-core:${assertjVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-api:${junitJupiterEngineVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:${junitJupiterEngineVersion}"
+    testCompile "org.junit.jupiter:junit-jupiter-params:${junitJupiterEngineVersion}"
+
+    // 	The junit-vintage-engine dependency adds support for unit tests that use JUnit 4 or JUnit 3.
+    testCompile "org.junit.vintage:junit-vintage-engine:${junitVintageEngineVersion}"
+
+    // The junit-platform-launcher dependency provides a public API for configuring and launching tests. This API is typically used by IDEs and build tools.
+    testCompile "org.junit.platform:junit-platform-launcher:${junitPlatformVersion}"
+
+    // The junit-platform-runner dependency allows us to run tests and test suites in a JUnit 4 environment.
+    testCompile "org.junit.platform:junit-platform-runner:${junitPlatformVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
