@@ -31,7 +31,7 @@ public class Quote {
         return this;
     }
 
-    public String symbol() {
+    public String getSymbol() {
         return symbol;
     }
 }
